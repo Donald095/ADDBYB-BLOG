@@ -5,35 +5,13 @@
 <ul class="sidebar-nav" id="sidebar-nav">
 
   <li class="nav-item">
-    <a class="nav-link " href="index.html">
+    <a class="nav-link " href="index.php">
       <i class="fa fa-th-large"></i>
       <span>Dashboard</span>
     </a>
   </li>
   <li class="nav-heading">WebSite CMS</li>
-  <!-- <li class="nav-item">
-    <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
-      <i class="bi bi-gem"></i><span>Icons</span><i class="bi bi-chevron-down ms-auto"></i>
-    </a>
-    <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-      <li>
-        <a href="icons-bootstrap.html">
-          <i class="bi bi-circle"></i><span>Bootstrap Icons</span>
-        </a>
-      </li>
-      <li>
-        <a href="icons-remix.html">
-          <i class="bi bi-circle"></i><span>Remix Icons</span>
-        </a>
-      </li>
-      <li>
-        <a href="icons-boxicons.html">
-          <i class="bi bi-circle"></i><span>Boxicons</span>
-        </a>
-      </li>
-    </ul>
-  </li> -->
-
+  
   <li class="nav-item">
     <a class="nav-link collapsed" href="view-register.php">
       <i class="fa fa-users"></i>
@@ -41,11 +19,17 @@
     </a>
   </li>
   <li class="nav-item">
+    <a class="nav-link collapsed" href="view-contact.php">
+      <i class="fa fa-envelope"></i>
+      <span>Contact Us</span>
+    </a>
+  </li>
+  <!-- <li class="nav-item">
     <a class="nav-link collapsed" href="add-admin.php">
       <i class="fa fa-user-plus"></i>
       <span>Add Admin</span>
     </a>
-  </li>
+  </li> -->
 
   <li class="nav-heading">Inner Pages</li>
 <li class="nav-item">

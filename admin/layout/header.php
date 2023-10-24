@@ -17,10 +17,10 @@
 <body>
   <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
+      <a href="index.php" class="logo d-flex align-items-center">
         <img src="images/logo.png" alt="">
       </a>
-      <i class="bi bi-list toggle-sidebar-btn"></i>
+      <i class="fa fa-bars toggle-sidebar-btn"></i>
     </div>
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
@@ -40,7 +40,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+              <a class="dropdown-item d-flex align-items-center" href="users-profile.php">
                 <i class="fa  fa-user-circle-o"></i>
                 <span>My Profile</span>
               </a>
