@@ -1,6 +1,5 @@
 <?php
 session_start();
-include('config/db_con.php');
 include('layout/header.php');
 include('massage-home.php');
 
@@ -106,18 +105,26 @@ include('massage-home.php');
 
             </div>
             <div class="col-lg-4">
+
                 <div class="d-flex align-items-center justify-content-between bg-light py-2 px-4 mb-3">
                     <h3 class="m-0">Categories</h3>
                     <a class="text-secondary font-weight-medium text-decoration-none" href="">View All</a>
                 </div>
-                <div class="position-relative overflow-hidden mb-3" style="height: 80px;">
-                    <img class="img-fluid w-100 h-100" src="img/cat-500x80-1.jpg" style="object-fit: cover;">
-                    <a href=""
-                        class="overlay align-items-center justify-content-center h4 m-0 text-white text-decoration-none">
-                        Business
-                    </a>
-                </div>
-                <div class="position-relative overflow-hidden mb-3" style="height: 80px;">
+                <?php
+
+                $cat_data = mysqli_query($con, "SELECT * FROM `categories` WHERE STATUS = '1' ORDER BY `id` DESC LIMIT 0,4");
+                while ($row = mysqli_fetch_assoc($cat_data)) {
+                    ?>
+
+                    <div class="position-relative overflow-hidden mb-3" style="height: 80px;">
+                        <img class="img-fluid w-100 h-100" src="img/cat-500x80-1.jpg" style="object-fit: cover;">
+                        <a href=""
+                            class="overlay align-items-center justify-content-center h4 m-0 text-white text-decoration-none">
+                            <?= $row['name'] ?>
+                        </a>
+                    </div>
+                <?php } ?>
+                <!-- <div class="position-relative overflow-hidden mb-3" style="height: 80px;">
                     <img class="img-fluid w-100 h-100" src="img/cat-500x80-2.jpg" style="object-fit: cover;">
                     <a href=""
                         class="overlay align-items-center justify-content-center h4 m-0 text-white text-decoration-none">
@@ -137,7 +144,7 @@ include('massage-home.php');
                         class="overlay align-items-center justify-content-center h4 m-0 text-white text-decoration-none">
                         Sports
                     </a>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -153,61 +160,35 @@ include('massage-home.php');
             <a class="text-secondary font-weight-medium text-decoration-none" href="">View All</a>
         </div>
         <div class="owl-carousel owl-carousel-2 carousel-item-4 position-relative">
-            <div class="position-relative overflow-hidden" style="height: 300px;">
-                <img class="img-fluid w-100 h-100" src="img/news-300x300-1.jpg" style="object-fit: cover;">
-                <div class="overlay">
-                    <div class="mb-1" style="font-size: 13px;">
-                        <a class="text-white" href="">Technology</a>
-                        <span class="px-1 text-white">/</span>
-                        <a class="text-white" href="">January 01, 2045</a>
+            <?php
+
+            $cat_data = mysqli_query($con, "SELECT * FROM `categories` WHERE STATUS = '1' ORDER BY `id` DESC ");
+            while ($row = mysqli_fetch_assoc($cat_data)) {
+                $cat_id = $row['id'];
+
+                $post_data = mysqli_query($con, "SELECT * FROM `posts` WHERE `category_id` = '" . $cat_id . "' ORDER BY `id` DESC");
+                while ($post_da = mysqli_fetch_assoc($post_data)) {
+                    ?>
+                    <div class="position-relative overflow-hidden" style="height: 300px;">
+                        <img class="img-fluid w-100 h-100" src="uploads/posts/<?= $post_da['image'] ?>"
+                            style="object-fit: cover;">
+                        <div class="overlay">
+                            <div class="mb-1" style="font-size: 13px;">
+                                <a class="text-white" target="_blank" href="post_detail.php?id=<?= $post_da['id'] ?>">
+                                    <?= $row['name'] ?>
+                                </a>
+                                <span class="px-1 text-white">/</span>
+                                <a class="text-white" href="post_detail.php?id=<?= $post_da['id'] ?>">
+                                    <?= date('F  d, Y', strtotime($post_da['created_at'])) ?>
+                                </a>
+                            </div>
+                            <a class="h4 m-0 text-white" target="_blank" href="post_detail.php?id=<?= $post_da['id'] ?>">
+                                <?= $post_da['name'] ?>
+                            </a>
+                        </div>
                     </div>
-                    <a class="h4 m-0 text-white" href="">Sanctus amet sed ipsum lorem</a>
-                </div>
-            </div>
-            <div class="position-relative overflow-hidden" style="height: 300px;">
-                <img class="img-fluid w-100 h-100" src="img/news-300x300-2.jpg" style="object-fit: cover;">
-                <div class="overlay">
-                    <div class="mb-1" style="font-size: 13px;">
-                        <a class="text-white" href="">Technology</a>
-                        <span class="px-1 text-white">/</span>
-                        <a class="text-white" href="">January 01, 2045</a>
-                    </div>
-                    <a class="h4 m-0 text-white" href="">Sanctus amet sed ipsum lorem</a>
-                </div>
-            </div>
-            <div class="position-relative overflow-hidden" style="height: 300px;">
-                <img class="img-fluid w-100 h-100" src="img/news-300x300-3.jpg" style="object-fit: cover;">
-                <div class="overlay">
-                    <div class="mb-1" style="font-size: 13px;">
-                        <a class="text-white" href="">Technology</a>
-                        <span class="px-1 text-white">/</span>
-                        <a class="text-white" href="">January 01, 2045</a>
-                    </div>
-                    <a class="h4 m-0 text-white" href="">Sanctus amet sed ipsum lorem</a>
-                </div>
-            </div>
-            <div class="position-relative overflow-hidden" style="height: 300px;">
-                <img class="img-fluid w-100 h-100" src="img/news-300x300-4.jpg" style="object-fit: cover;">
-                <div class="overlay">
-                    <div class="mb-1" style="font-size: 13px;">
-                        <a class="text-white" href="">Technology</a>
-                        <span class="px-1 text-white">/</span>
-                        <a class="text-white" href="">January 01, 2045</a>
-                    </div>
-                    <a class="h4 m-0 text-white" href="">Sanctus amet sed ipsum lorem</a>
-                </div>
-            </div>
-            <div class="position-relative overflow-hidden" style="height: 300px;">
-                <img class="img-fluid w-100 h-100" src="img/news-300x300-5.jpg" style="object-fit: cover;">
-                <div class="overlay">
-                    <div class="mb-1" style="font-size: 13px;">
-                        <a class="text-white" href="">Technology</a>
-                        <span class="px-1 text-white">/</span>
-                        <a class="text-white" href="">January 01, 2045</a>
-                    </div>
-                    <a class="h4 m-0 text-white" href="">Sanctus amet sed ipsum lorem</a>
-                </div>
-            </div>
+                <?php }
+            } ?>
         </div>
     </div>
 </div>
@@ -218,47 +199,67 @@ include('massage-home.php');
 <div class="container-fluid">
     <div class="container">
         <div class="row">
-            <div class="col-lg-6 py-3">
-                <div class="bg-light py-2 px-4 mb-3">
-                    <h3 class="m-0">Business</h3>
+
+            <?php
+
+            $cat_data = mysqli_query($con, "SELECT * FROM `categories` WHERE STATUS = '1' ORDER BY `id` DESC");
+            $cat_num_rows = mysqli_num_rows($cat_data);
+
+            for ($j = 0; $j < 4; $j++) {
+                $row = mysqli_fetch_assoc($cat_data);
+                $cat_id = $row['id'];
+
+                $check_post_data = mysqli_query($con, "SELECT * FROM `posts` WHERE `category_id` = '" . $cat_id . "'");
+                $check_num_rows = mysqli_num_rows($check_post_data);
+                if ($check_num_rows == 0) {
+                    continue;
+                }
+
+
+                ?>
+                <div class="col-lg-6 py-3">
+                    <div class="bg-light py-2 px-4 mb-3">
+                        <h3 class="m-0">
+                            <?= $row['name'] ?>
+                        </h3>
+                    </div>
+                    <div class="owl-carousel owl-carousel-3 carousel-item-2 position-relative">
+                        <?php
+
+
+
+                        $post_data = mysqli_query($con, "SELECT * FROM `posts` WHERE `category_id` = '" . $cat_id . "' ORDER BY `id` DESC LIMIT 0,4");
+                        $num_rows = mysqli_num_rows($post_data);
+
+                        for ($i = 0; $i < $num_rows; $i++) {
+                            $post_da = mysqli_fetch_assoc($post_data);
+                            ?>
+                            <div class="position-relative">
+                                <img class="img-fluid w-100" src="uploads/posts/<?= $post_da['image'] ?>"
+                                    style="object-fit: cover;">
+                                <div class="overlay position-relative bg-light">
+                                    <div class="mb-2" style="font-size: 13px;">
+                                        <a target="_blank" href="post_detail.php?id=<?= $post_da['id'] ?>">
+                                            <?= $row['name'] ?>
+                                        </a>
+                                        <span class="px-1">/</span>
+                                        <span>
+                                            <?= date('F  d, Y', strtotime($post_da['created_at'])) ?>
+                                        </span>
+                                    </div>
+                                    <a target="_blank" class="h4 m-0" href="post_detail.php?id=<?= $post_da['id'] ?>">
+                                        <?= $post_da['name'] ?>
+                                    </a>
+                                    <p class="m-0">
+                                        <?= substr($post_da['description'], 0, 30) ?>....
+                                    </p>
+                                </div>
+                            </div>
+                        <?php } ?>
+                    </div>
                 </div>
-                <div class="owl-carousel owl-carousel-3 carousel-item-2 position-relative">
-                    <div class="position-relative">
-                        <img class="img-fluid w-100" src="img/news-500x280-1.jpg" style="object-fit: cover;">
-                        <div class="overlay position-relative bg-light">
-                            <div class="mb-2" style="font-size: 13px;">
-                                <a href="">Technology</a>
-                                <span class="px-1">/</span>
-                                <span>January 01, 2045</span>
-                            </div>
-                            <a class="h4 m-0" href="">Sanctus amet sed ipsum lorem</a>
-                        </div>
-                    </div>
-                    <div class="position-relative">
-                        <img class="img-fluid w-100" src="img/news-500x280-2.jpg" style="object-fit: cover;">
-                        <div class="overlay position-relative bg-light">
-                            <div class="mb-2" style="font-size: 13px;">
-                                <a href="">Technology</a>
-                                <span class="px-1">/</span>
-                                <span>January 01, 2045</span>
-                            </div>
-                            <a class="h4 m-0" href="">Sanctus amet sed ipsum lorem</a>
-                        </div>
-                    </div>
-                    <div class="position-relative">
-                        <img class="img-fluid w-100" src="img/news-500x280-3.jpg" style="object-fit: cover;">
-                        <div class="overlay position-relative bg-light">
-                            <div class="mb-2" style="font-size: 13px;">
-                                <a href="">Technology</a>
-                                <span class="px-1">/</span>
-                                <span>January 01, 2045</span>
-                            </div>
-                            <a class="h4 m-0" href="">Sanctus amet sed ipsum lorem</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 py-3">
+            <?php } ?>
+            <!-- <div class="col-lg-6 py-3">
                 <div class="bg-light py-2 px-4 mb-3">
                     <h3 class="m-0">Technology</h3>
                 </div>
@@ -297,7 +298,7 @@ include('massage-home.php');
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>
@@ -306,7 +307,7 @@ include('massage-home.php');
 
 
 <!-- Category News Slider Start -->
-<div class="container-fluid">
+<!-- <div class="container-fluid">
     <div class="container">
         <div class="row">
             <div class="col-lg-6 py-3">
@@ -391,7 +392,7 @@ include('massage-home.php');
             </div>
         </div>
     </div>
-</div>
+</div> -->
 </div>
 <!-- Category News Slider End -->
 
@@ -409,6 +410,8 @@ include('massage-home.php');
                         </div>
                     </div>
                     <div class="col-lg-6">
+
+
                         <div class="position-relative mb-3">
                             <img class="img-fluid w-100" src="img/news-500x280-5.jpg" style="object-fit: cover;">
                             <div class="overlay position-relative bg-light">
@@ -644,66 +647,36 @@ include('massage-home.php');
                     <div class="bg-light py-2 px-4 mb-3">
                         <h3 class="m-0">Tranding</h3>
                     </div>
-                    <div class="d-flex mb-3">
-                        <img src="img/news-100x100-1.jpg" style="width: 100px; height: 100px; object-fit: cover;">
-                        <div class="w-100 d-flex flex-column justify-content-center bg-light px-3"
-                            style="height: 100px;">
-                            <div class="mb-1" style="font-size: 13px;">
-                                <a href="">Technology</a>
-                                <span class="px-1">/</span>
-                                <span>January 01, 2045</span>
+                    <?php
+
+                    $cat_data = mysqli_query($con, "SELECT * FROM `categories` WHERE STATUS = '1' ORDER BY `id` DESC ");
+                    while ($row = mysqli_fetch_assoc($cat_data)) {
+                        $cat_id = $row['id'];
+
+                        $post_data = mysqli_query($con, "SELECT * FROM `posts` WHERE `category_id` = '" . $cat_id . "' ORDER BY `id` DESC");
+                        while ($post_da = mysqli_fetch_assoc($post_data)) {
+                            ?>
+                            <div class="d-flex mb-3">
+                                <img src="uploads/posts/<?= $post_da['image'] ?>"" style=" width: 100px; height: 100px;
+                                    object-fit: cover;">
+                                <div class="w-100 d-flex flex-column justify-content-center bg-light px-3"
+                                    style="height: 100px;">
+                                    <div class="mb-1" style="font-size: 13px;">
+                                        <a target="_blank" href="post_detail.php?id=<?= $post_da['id'] ?>">
+                                            <?= $row['name'] ?>
+                                        </a>
+                                        <span class="px-1">/</span>
+                                        <span>
+                                            <?= date('F  d, Y', strtotime($post_da['created_at'])) ?>
+                                        </span>
+                                    </div>
+                                    <a class="h6 m-0" target="_blank" href="post_detail.php?id=<?= $post_da['id'] ?>">
+                                        <?= $post_da['name'] ?>
+                                    </a>
+                                </div>
                             </div>
-                            <a class="h6 m-0" href="">Lorem ipsum dolor sit amet consec adipis elit</a>
-                        </div>
-                    </div>
-                    <div class="d-flex mb-3">
-                        <img src="img/news-100x100-2.jpg" style="width: 100px; height: 100px; object-fit: cover;">
-                        <div class="w-100 d-flex flex-column justify-content-center bg-light px-3"
-                            style="height: 100px;">
-                            <div class="mb-1" style="font-size: 13px;">
-                                <a href="">Technology</a>
-                                <span class="px-1">/</span>
-                                <span>January 01, 2045</span>
-                            </div>
-                            <a class="h6 m-0" href="">Lorem ipsum dolor sit amet consec adipis elit</a>
-                        </div>
-                    </div>
-                    <div class="d-flex mb-3">
-                        <img src="img/news-100x100-3.jpg" style="width: 100px; height: 100px; object-fit: cover;">
-                        <div class="w-100 d-flex flex-column justify-content-center bg-light px-3"
-                            style="height: 100px;">
-                            <div class="mb-1" style="font-size: 13px;">
-                                <a href="">Technology</a>
-                                <span class="px-1">/</span>
-                                <span>January 01, 2045</span>
-                            </div>
-                            <a class="h6 m-0" href="">Lorem ipsum dolor sit amet consec adipis elit</a>
-                        </div>
-                    </div>
-                    <div class="d-flex mb-3">
-                        <img src="img/news-100x100-4.jpg" style="width: 100px; height: 100px; object-fit: cover;">
-                        <div class="w-100 d-flex flex-column justify-content-center bg-light px-3"
-                            style="height: 100px;">
-                            <div class="mb-1" style="font-size: 13px;">
-                                <a href="">Technology</a>
-                                <span class="px-1">/</span>
-                                <span>January 01, 2045</span>
-                            </div>
-                            <a class="h6 m-0" href="">Lorem ipsum dolor sit amet consec adipis elit</a>
-                        </div>
-                    </div>
-                    <div class="d-flex mb-3">
-                        <img src="img/news-100x100-5.jpg" style="width: 100px; height: 100px; object-fit: cover;">
-                        <div class="w-100 d-flex flex-column justify-content-center bg-light px-3"
-                            style="height: 100px;">
-                            <div class="mb-1" style="font-size: 13px;">
-                                <a href="">Technology</a>
-                                <span class="px-1">/</span>
-                                <span>January 01, 2045</span>
-                            </div>
-                            <a class="h6 m-0" href="">Lorem ipsum dolor sit amet consec adipis elit</a>
-                        </div>
-                    </div>
+                        <?php }
+                    } ?>
                 </div>
                 <!-- Popular News End -->
 

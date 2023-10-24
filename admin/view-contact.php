@@ -57,7 +57,13 @@
                            <td class="align-middle"><?= $row['phone_no']; ?></td>
                            <td class="align-middle"><?= $row['subject']; ?></td>
                            <td class="align-middle"><?= $row['message']; ?></td>
-                           <td class="align-middle"><?= $row['created_at']; ?></td>
+                           <td class="align-middle">
+
+                           <?php
+                            $date = strtotime($row['created_at']);
+                            echo date("d-m-Y", $date); ?>
+                            
+                        </td>
                         </tr>
 
                         <?php

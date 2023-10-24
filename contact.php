@@ -1,4 +1,8 @@
-<?php include ('layout/header.php') ?>
+<?php 
+session_start();
+include ('layout/header.php');
+include ('massage.php');
+ ?>
     <!-- Breadcrumb Start -->
     <div class="container-fluid">
         <div class="container">
@@ -17,6 +21,7 @@
             <div class="bg-light py-2 px-4 mb-3">
                 <h3 class="m-0">Contact Us For Any Queries</h3>
             </div>
+          
             <div class="row">
                 <div class="col-md-5">
                     <div class="bg-light mb-3" style="padding: 30px;">
@@ -62,13 +67,24 @@
                                         <p class="help-block text-danger"></p>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="control-group">
+                                <div class="col-md-6">
+                                    <div class="control-group">
+                                        <input type="number" class="form-control p-4" maxlength="10" name="phone_no" id="phone_no" placeholder="Your Phone No." required="required" data-validation-required-message="Please enter your Phone No." />
+                                        <p class="help-block text-danger"></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                <div class="control-group">
                                 <input type="text" class="form-control p-4" id="subject" name="subject" placeholder="Subject" required="required" data-validation-required-message="Please enter a subject" />
                                 <p class="help-block text-danger"></p>
                             </div>
+                                </div>
+                            </div>
+
+                           
+
                             <div class="control-group">
-                                <textarea class="form-control" rows="4" id="message" name="message" placeholder="Message" required="required" data-validation-required-message="Please enter your message"></textarea>
+                                <textarea class="form-control" rows="6" id="message" name="message" placeholder="Message" required="required" data-validation-required-message="Please enter your message"></textarea>
                                 <p class="help-block text-danger"></p>
                             </div>
                             <div>

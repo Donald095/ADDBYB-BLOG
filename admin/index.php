@@ -18,7 +18,7 @@
       <div class="row">
          <div class="col-lg-12">
             <div class="row">
-               <div class="col-lg-3 col-md-6">
+               <div class="col-lg-4 col-md-6">
                   <div class="card info-card sales-card">
                      <div class="card-body">
                         <h5 class="card-title text-center">Active Users</h5>
@@ -54,7 +54,7 @@
                      </div>
                   </div>
                </div>
-               <div class="col-lg-3 col-md-6">
+               <div class="col-lg-4 col-md-6">
                   <div class="card info-card sales-card">
                      <div class="card-body">
                         <h5 class="card-title text-center">Inactive Users</h5>
@@ -90,7 +90,7 @@
                      </div>
                   </div>
                </div>
-               <div class="col-lg-3 col-md-6">
+               <div class="col-lg-4 col-md-6">
                   <div class="card info-card sales-card">
                      <div class="card-body">
                         <h5 class="card-title text-center">Active Admin</h5>
@@ -126,7 +126,7 @@
                      </div>
                   </div>
                </div>
-               <div class="col-lg-3 col-md-6">
+               <div class="col-lg-4 col-md-6">
                   <div class="card info-card sales-card">
                      <div class="card-body">
                         <h5 class="card-title text-center">Active Category</h5>
@@ -162,12 +162,12 @@
                      </div>
                   </div>
                </div>
-               <div class="col-lg-3 col-md-6">
+               <div class="col-lg-4 col-md-6">
                   <div class="card info-card sales-card">
                      <div class="card-body">
                         <h5 class="card-title text-center">Publish Blogs</h5>
                         <div class="d-flex align-items-center justify-content-center">
-                           <div class="card-icon text-info rounded-circle d-flex align-items-center justify-content-center">
+                           <div class="card-icon text-warning  rounded-circle d-flex align-items-center justify-content-center">
                               <i class="fa fa-rss-square"></i>
                            </div>
                            <div class="ps-3">
@@ -198,17 +198,17 @@
                      </div>
                   </div>
                </div>
-               <div class="col-lg-3 col-md-6">
+               <div class="col-lg-4 col-md-6">
                   <div class="card info-card sales-card">
                      <div class="card-body">
-                        <h5 class="card-title text-center">Publish Blogs</h5>
+                        <h5 class="card-title text-center">Contact Us</h5>
                         <div class="d-flex align-items-center justify-content-center">
-                           <div class="card-icon text-info rounded-circle d-flex align-items-center justify-content-center">
-                              <i class="fa fa-rss-square"></i>
+                           <div class="card-icon text-secondary rounded-circle d-flex align-items-center justify-content-center">
+                              <i class="fa fa-envelope"></i>
                            </div>
                            <div class="ps-3">
                            <?php
-                            $query = "SELECT COUNT(id) as data FROM posts WHERE status = 1";
+                            $query = "SELECT COUNT(id) as data FROM contact ";
                             $query_run = mysqli_query($con, $query);
                             if(mysqli_num_rows($query_run) > 0)
                             { 
@@ -234,6 +234,7 @@
                      </div>
                   </div>
                </div>
+               
 
             </div>
          </div>

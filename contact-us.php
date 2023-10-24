@@ -1,39 +1,29 @@
 <?php
+session_start();
 include('admin/authentication.php');
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = strip_tags(trim($_POST["username"]));
-    $name = str_replace(array("\r","\n"),array(" "," "),$name);
-    $email = filter_var(trim($_POST["email"]), FILTER_SANITIZE_EMAIL);
-    $subject = trim($_POST["subject"]);
-    $phone = trim($_POST["phone"]);
-    $message = trim($_POST["message"]);
-    if ( empty($name) OR empty($subject) OR empty($message) OR !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        http_response_code(400);
-        echo "Please complete the form and try again.";
-        exit;
-    }
-    $recipient = "donaldsingh095@gmail.com";
-    $subject = "Website Enquiry Form - $name";
-    $email_content = "Name: $name\n";
-    $email_content .= "Email: $email\n";
-    $email_content .= "Mobile No.: $phone\n";
-    $email_content .= "Subject: $subject\n";
-    $email_content .= "Message: $message\n";
-    $email_headers = "From: $name <$email>";
-    if (mail($recipient, $subject, $email_content, $email_headers)) {
-        http_response_code(200);
-        echo "<script>alert('Thank You! Your message has been sent.');
-        document.location.href = '';</script>";
-        
-    } else {
-        http_response_code(500);
-        echo "Oops! Something went wrong and we couldn't send your message.";
-    }
+if(isset($_POST['contact_submit']))
+{
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $phone_no = $_POST['phone_no'];
+    $subject = $_POST['subject'];
+    $message = $_POST['message'];
+    $query = "INSERT INTO contact (name,email,phone_no,subject,message) VALUES ('$name','$email','$phone_no','$subject','$message')";
+    $query_run = mysqli_query($con, $query); 
 
-} else {
-    http_response_code(403);
-    echo "There was a problem with your submission, please try again.";
+    if ($query_run) 
+    {
+        $_SESSION["massage"] = "Mail Sand Successfully.";
+        header("Location: contact.php");
+        exit(0);
+    } 
+    else {
+        $_SESSION["massage"] = "something want wrong.";
+        header("Location: contact.php");
+        exit(0);
+    }    
+
 }
 
 ?>
