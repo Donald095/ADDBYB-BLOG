@@ -52,7 +52,7 @@
       </div>
       <div class="bg-light navbar-light">
          <div class="container-lg p-0 mb-3">
-            <nav class="navbar navbar-expand-lg py-2 py-lg-0 px-lg-5">
+            <nav class="navbar navbar-expand-lg">
                <div class="row align-items-center">
                   <div class="col-8">
                      <a href="" class="navbar-brand d-block d-lg-none">
@@ -74,7 +74,7 @@
                         <img src="images/main-logo-01.png" class="img-fluid" alt="main logo" />
                         </a>
                      </div>
-                     <div class="col-lg-6">
+                     <div class="col-lg-10">
                         <div class="navbar-nav mr-auto py-0 justify-content-center">
                            <a href="index.php" class="nav-item nav-link active">Home</a>
                            <a href="category.php" class="nav-item nav-link">Categories</a>
@@ -96,10 +96,6 @@
                            <a href="login.php" class="nav-item nav-link">Login</a>
                            <a href="register.php" class="nav-item nav-link">Create Account</a>
                            <?php endif; ?>
-                        </div>
-                     </div>
-                     <div class="col-lg-3 d-lg-block d-none">
-                        <div class="navbar-nav mr-auto py-0 justify-content-center">
                         </div>
                      </div>
                   </div>

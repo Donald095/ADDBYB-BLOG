@@ -7,7 +7,7 @@
                 <a href="index.html" class="navbar-brand">
                     <img src="images/main-logo-01.png" class="img-fluid" alt="Footer logo" />
                 </a>
-                <p>Volup amet magna clita tempor. Tempor sea eos vero ipsum. Lorem lorem sit sed elitr sed kasd et</p>
+                <p>ADDBYB Digital Marketing Pvt Ltd is here to guide you. Let's work together to make your digital dreams a reality.</p>
                 <div class="d-flex justify-content-start mt-4">
                     <a class="btn btn-outline-secondary text-center mr-2 px-0" style="width: 38px; height: 38px;" href="#"><i class="fa fa-twitter"></i></a>
                     <a class="btn btn-outline-secondary text-center mr-2 px-0" style="width: 38px; height: 38px;" href="#"><i class="fa fa-facebook-f"></i></a>

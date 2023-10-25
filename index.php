@@ -36,12 +36,12 @@
             else
             {
             ?>
-        <div class="d-flex">
+         <div class="d-flex">
             <img style="width: 80px; height: 80px; object-fit: cover;" src="uploads/posts/noimage.png">
             <div class="d-flex align-items-center bg-light px-3" style="height: 80px;">
                <a class="text-secondary font-weight-semi-bold" href="#">
-               <strong>No Title Found.</strong><br>
-               <p>No Description Found.</p>
+                  <strong>No Title Found.</strong><br>
+                  <p>No Description Found.</p>
                </a>
             </div>
          </div>
@@ -413,90 +413,178 @@
                      <a class="text-secondary font-weight-medium text-decoration-none" href="">View All</a>
                   </div>
                </div>
+               <?php
+                  $query = "SELECT blog.*, category.name AS category_name FROM posts blog, categories category WHERE category.id = blog.category_id AND blog.status=1 LIMIT 0,2";
+                  $query_run = mysqli_query($con, $query);
+                  if(mysqli_num_rows($query_run) > 0)
+                  { 
+                     foreach( $query_run as $row)
+                     { 
+                      ?>
                <div class="col-lg-6">
                   <div class="position-relative mb-3">
-                     <img class="img-fluid w-100" src="img/news-500x280-5.jpg" style="object-fit: cover;">
+                     <?php
+                        $filename = "uploads/posts/" .$row['image'];
+                        $imgSrc = file_exists($filename) ? $filename : "uploads/posts/noimage.png";?>
+                     <img class="img-fluid w-100"  style="object-fit: cover; height:230px;" src=<?php echo $imgSrc?>
+                        ?>
                      <div class="overlay position-relative bg-light">
                         <div class="mb-2" style="font-size: 14px;">
-                           <a href="">Technology</a>
+                           <a href=""><?= $row['category_name']; ?></a>
                            <span class="px-1">/</span>
-                           <span>January 01, 2045</span>
+                           <span><?php
+                              $date = strtotime($row['created_at']);
+                              // $date= date_create('2008-09-22');
+                              echo date("F d, Y", $date);
+                              
+                              ?></span>
                         </div>
-                        <a class="h4" href="">Est stet amet ipsum stet clita rebum duo</a>
-                        <p class="m-0">Rebum dolore duo et vero ipsum clita, est ea sed duo diam ipsum, clita at
-                           justo, lorem amet vero eos sed sit...
+                        <a class="h4" href=""><?= $row['name']; ?></a>
+                        <p class="m-0">  <?= substr($row['description'], 0, 100) ?>....
+                        </p>
+                     </div>
+                  </div>
+               </div>
+               <?php
+                  }
+                  
+                  }
+                  else
+                  {
+                  ?>
+               <div class="col-lg-6">
+                  <div class="position-relative mb-3">
+                     <img class="img-fluid w-100" src="uploads/posts/noimage.png" style="object-fit: cover;">
+                     <div class="overlay position-relative bg-light">
+                        <div class="mb-2" style="font-size: 14px;">
+                           <a href="">No Category</a>
+                           <span class="px-1">/</span>
+                           <span>No Date</span>
+                        </div>
+                        <a class="h4" href="">No Title</a>
+                        <p class="m-0">No Description
                         </p>
                      </div>
                   </div>
                </div>
                <div class="col-lg-6">
                   <div class="position-relative mb-3">
-                     <img class="img-fluid w-100" src="img/news-500x280-6.jpg" style="object-fit: cover;">
+                     <img class="img-fluid w-100" src="uploads/posts/noimage.png" style="object-fit: cover;">
                      <div class="overlay position-relative bg-light">
                         <div class="mb-2" style="font-size: 14px;">
-                           <a href="">Technology</a>
+                           <a href="">No Category</a>
                            <span class="px-1">/</span>
-                           <span>January 01, 2045</span>
+                           <span>No Date</span>
                         </div>
-                        <a class="h4" href="">Est stet amet ipsum stet clita rebum duo</a>
-                        <p class="m-0">Rebum dolore duo et vero ipsum clita, est ea sed duo diam ipsum, clita at
-                           justo, lorem amet vero eos sed sit...
+                        <a class="h4" href="">No Title</a>
+                        <p class="m-0">No Description
                         </p>
                      </div>
                   </div>
                </div>
+               <?php
+                  }
+                  ?>
             </div>
             <div class="row">
-               <div class="col-lg-6">
-                  <div class="d-flex mb-3">
-                     <img src="img/news-100x100-5.jpg" style="width: 100px; height: 100px; object-fit: cover;">
-                     <div class="w-100 d-flex flex-column justify-content-center bg-light px-3"
-                        style="height: 100px;">
-                        <div class="mb-1" style="font-size: 13px;">
-                           <a href="">Technology</a>
-                           <span class="px-1">/</span>
-                           <span>January 01, 2045</span>
+               <div class="col-lg-12">
+                  <div class="row">
+
+                  <?php
+                  $query = "SELECT blog.*, category.name AS category_name FROM posts blog, categories category WHERE category.id = blog.category_id AND blog.status=1 LIMIT 0,4";
+                  $query_run = mysqli_query($con, $query);
+                  if(mysqli_num_rows($query_run) > 0)
+                  { 
+                     foreach( $query_run as $row)
+                     { 
+                      ?>
+                     <div class="col-lg-6">
+                        <div class="d-flex mb-3">
+                           <?php
+                        $filename = "uploads/posts/" .$row['image'];
+                        $imgSrc = file_exists($filename) ? $filename : "uploads/posts/noimage.png";?>
+                     <img class="img-fluid w-100" style="width: 100px; height: 100px; object-fit: cover;" src=<?php echo $imgSrc?>
+                        ?>
+                           <div class="w-100 d-flex flex-column justify-content-center bg-light px-3"
+                              style="height: 100px;">
+                              <div class="mb-1" style="font-size: 13px;">
+                                 <a href=""><?= $row['category_name']; ?></a>
+                                 <span class="px-1">/</span>
+                                 <span><?php
+                              $date = strtotime($row['created_at']);
+                              echo date("F d, Y", $date);
+                              
+                              ?></span>
+                              </div>
+                              <a class="h6 m-0" href=""><?= $row['name']; ?></a>
+                           </div>
                         </div>
-                        <a class="h6 m-0" href="">Lorem ipsum dolor sit amet consec adipis elit</a>
                      </div>
-                  </div>
-                  <div class="d-flex mb-3">
-                     <img src="img/news-100x100-1.jpg" style="width: 100px; height: 100px; object-fit: cover;">
-                     <div class="w-100 d-flex flex-column justify-content-center bg-light px-3"
-                        style="height: 100px;">
-                        <div class="mb-1" style="font-size: 13px;">
-                           <a href="">Technology</a>
-                           <span class="px-1">/</span>
-                           <span>January 01, 2045</span>
+                     <?php
+                  }
+                  }
+                  else
+                  {
+                  ?>
+                     <div class="col-lg-6">
+                        <div class="d-flex mb-3">
+                           <img src="uploads/posts/noimage.png" style="width: 100px; height: 100px; object-fit: cover;">
+                           <div class="w-100 d-flex flex-column justify-content-center bg-light px-3"
+                              style="height: 100px;">
+                              <div class="mb-1" style="font-size: 13px;">
+                                 <a href="">No Category Name</a>
+                                 <span class="px-1">/</span>
+                                 <span>No Date</span>
+                              </div>
+                              <a class="h6 m-0" href="">No Title</a>
+                           </div>
                         </div>
-                        <a class="h6 m-0" href="">Lorem ipsum dolor sit amet consec adipis elit</a>
                      </div>
-                  </div>
-               </div>
-               <div class="col-lg-6">
-                  <div class="d-flex mb-3">
-                     <img src="img/news-100x100-5.jpg" style="width: 100px; height: 100px; object-fit: cover;">
-                     <div class="w-100 d-flex flex-column justify-content-center bg-light px-3"
-                        style="height: 100px;">
-                        <div class="mb-1" style="font-size: 13px;">
-                           <a href="">Technology</a>
-                           <span class="px-1">/</span>
-                           <span>January 01, 2045</span>
+                     <div class="col-lg-6">
+                        <div class="d-flex mb-3">
+                           <img src="uploads/posts/noimage.png" style="width: 100px; height: 100px; object-fit: cover;">
+                           <div class="w-100 d-flex flex-column justify-content-center bg-light px-3"
+                              style="height: 100px;">
+                              <div class="mb-1" style="font-size: 13px;">
+                                 <a href="">No Category Name</a>
+                                 <span class="px-1">/</span>
+                                 <span>No Date</span>
+                              </div>
+                              <a class="h6 m-0" href="">No Title</a>
+                           </div>
                         </div>
-                        <a class="h6 m-0" href="">Lorem ipsum dolor sit amet consec adipis elit</a>
                      </div>
-                  </div>
-                  <div class="d-flex mb-3">
-                     <img src="img/news-100x100-1.jpg" style="width: 100px; height: 100px; object-fit: cover;">
-                     <div class="w-100 d-flex flex-column justify-content-center bg-light px-3"
-                        style="height: 100px;">
-                        <div class="mb-1" style="font-size: 13px;">
-                           <a href="">Technology</a>
-                           <span class="px-1">/</span>
-                           <span>January 01, 2045</span>
+                     <div class="col-lg-6">
+                        <div class="d-flex mb-3">
+                           <img src="uploads/posts/noimage.png" style="width: 100px; height: 100px; object-fit: cover;">
+                           <div class="w-100 d-flex flex-column justify-content-center bg-light px-3"
+                              style="height: 100px;">
+                              <div class="mb-1" style="font-size: 13px;">
+                                 <a href="">No Category Name</a>
+                                 <span class="px-1">/</span>
+                                 <span>No Date</span>
+                              </div>
+                              <a class="h6 m-0" href="">No Title</a>
+                           </div>
                         </div>
-                        <a class="h6 m-0" href="">Lorem ipsum dolor sit amet consec adipis elit</a>
                      </div>
+                     <div class="col-lg-6">
+                        <div class="d-flex mb-3">
+                           <img src="uploads/posts/noimage.png" style="width: 100px; height: 100px; object-fit: cover;">
+                           <div class="w-100 d-flex flex-column justify-content-center bg-light px-3"
+                              style="height: 100px;">
+                              <div class="mb-1" style="font-size: 13px;">
+                                 <a href="">No Category Name</a>
+                                 <span class="px-1">/</span>
+                                 <span>No Date</span>
+                              </div>
+                              <a class="h6 m-0" href="">No Title</a>
+                           </div>
+                        </div>
+                     </div>
+                     <?php
+                  }
+                  ?>
                   </div>
                </div>
             </div>
@@ -507,86 +595,178 @@
                      <a class="text-secondary font-weight-medium text-decoration-none" href="">View All</a>
                   </div>
                </div>
+               <?php
+                  $query = "SELECT blog.*, category.name AS category_name FROM posts blog, categories category WHERE category.id = blog.category_id AND blog.status=1 LIMIT 0,2";
+                  $query_run = mysqli_query($con, $query);
+                  if(mysqli_num_rows($query_run) > 0)
+                  { 
+                     foreach( $query_run as $row)
+                     { 
+                      ?>
                <div class="col-lg-6">
                   <div class="position-relative mb-3">
-                     <img class="img-fluid w-100" src="img/news-500x280-2.jpg" style="object-fit: cover;">
+                     <?php
+                        $filename = "uploads/posts/" .$row['image'];
+                        $imgSrc = file_exists($filename) ? $filename : "uploads/posts/noimage.png";?>
+                     <img class="img-fluid w-100"  style="object-fit: cover; height:230px;" src=<?php echo $imgSrc?>
+                        ?>
                      <div class="overlay position-relative bg-light">
                         <div class="mb-2" style="font-size: 14px;">
-                           <a href="">Technology</a>
+                           <a href=""><?= $row['category_name']; ?></a>
                            <span class="px-1">/</span>
-                           <span>January 01, 2045</span>
+                           <span><?php
+                              $date = strtotime($row['created_at']);
+                              // $date= date_create('2008-09-22');
+                              echo date("F d, Y", $date);
+                              
+                              ?></span>
                         </div>
-                        <a class="h4" href="">Est stet amet ipsum stet clita rebum duo</a>
-                        <p class="m-0">Rebum dolore duo et vero ipsum clita, est ea sed duo diam ipsum, clita at
-                           justo, lorem amet vero eos sed sit...
+                        <a class="h4" href=""><?= $row['name']; ?></a>
+                        <p class="m-0">  <?= substr($row['description'], 0, 100) ?>....
+                        </p>
+                     </div>
+                  </div>
+               </div>
+               <?php
+                  }
+                  
+                  }
+                  else
+                  {
+                  ?>
+               <div class="col-lg-6">
+                  <div class="position-relative mb-3">
+                     <img class="img-fluid w-100" src="uploads/posts/noimage.png" style="object-fit: cover;">
+                     <div class="overlay position-relative bg-light">
+                        <div class="mb-2" style="font-size: 14px;">
+                           <a href="">No Category</a>
+                           <span class="px-1">/</span>
+                           <span>No Date</span>
+                        </div>
+                        <a class="h4" href="">No Title</a>
+                        <p class="m-0">No Description
                         </p>
                      </div>
                   </div>
                </div>
                <div class="col-lg-6">
                   <div class="position-relative mb-3">
-                     <img class="img-fluid w-100" src="img/news-500x280-3.jpg" style="object-fit: cover;">
+                     <img class="img-fluid w-100" src="uploads/posts/noimage.png" style="object-fit: cover;">
                      <div class="overlay position-relative bg-light">
                         <div class="mb-2" style="font-size: 14px;">
-                           <a href="">Technology</a>
+                           <a href="">No Category</a>
                            <span class="px-1">/</span>
-                           <span>January 01, 2045</span>
+                           <span>No Date</span>
                         </div>
-                        <a class="h4" href="">Est stet amet ipsum stet clita rebum duo</a>
-                        <p class="m-0">Rebum dolore duo et vero ipsum clita, est ea sed duo diam ipsum, clita at
-                           justo, lorem amet vero eos sed sit...
+                        <a class="h4" href="">No Title</a>
+                        <p class="m-0">No Description
                         </p>
                      </div>
                   </div>
                </div>
+               <?php
+                  }
+                  ?>
             </div>
             <div class="row">
-               <div class="col-lg-6">
-                  <div class="d-flex mb-3">
-                     <img src="img/news-100x100-1.jpg" style="width: 100px; height: 100px; object-fit: cover;">
-                     <div class="w-100 d-flex flex-column justify-content-center bg-light px-3" style="height: 100px;">
-                        <div class="mb-1" style="font-size: 13px;">
-                           <a href="">Technology</a>
-                           <span class="px-1">/</span>
-                           <span>January 01, 2045</span>
+               <div class="col-lg-12">
+                  <div class="row">
+
+                  <?php
+                  $query = "SELECT blog.*, category.name AS category_name FROM posts blog, categories category WHERE category.id = blog.category_id AND blog.status=1 LIMIT 0,4";
+                  $query_run = mysqli_query($con, $query);
+                  if(mysqli_num_rows($query_run) > 0)
+                  { 
+                     foreach( $query_run as $row)
+                     { 
+                      ?>
+                     <div class="col-lg-6">
+                        <div class="d-flex mb-3">
+                           <?php
+                        $filename = "uploads/posts/" .$row['image'];
+                        $imgSrc = file_exists($filename) ? $filename : "uploads/posts/noimage.png";?>
+                     <img class="img-fluid w-100" style="width: 100px; height: 100px; object-fit: cover;" src=<?php echo $imgSrc?>
+                        ?>
+                           <div class="w-100 d-flex flex-column justify-content-center bg-light px-3"
+                              style="height: 100px;">
+                              <div class="mb-1" style="font-size: 13px;">
+                                 <a href=""><?= $row['category_name']; ?></a>
+                                 <span class="px-1">/</span>
+                                 <span><?php
+                              $date = strtotime($row['created_at']);
+                              echo date("F d, Y", $date);
+                              
+                              ?></span>
+                              </div>
+                              <a class="h6 m-0" href=""><?= $row['name']; ?></a>
+                           </div>
                         </div>
-                        <a class="h6 m-0" href="">Lorem ipsum dolor sit amet consec adipis elit</a>
                      </div>
-                  </div>
-                  <div class="d-flex mb-3">
-                     <img src="img/news-100x100-2.jpg" style="width: 100px; height: 100px; object-fit: cover;">
-                     <div class="w-100 d-flex flex-column justify-content-center bg-light px-3" style="height: 100px;">
-                        <div class="mb-1" style="font-size: 13px;">
-                           <a href="">Technology</a>
-                           <span class="px-1">/</span>
-                           <span>January 01, 2045</span>
+                     <?php
+                  }
+                  }
+                  else
+                  {
+                  ?>
+                     <div class="col-lg-6">
+                        <div class="d-flex mb-3">
+                           <img src="uploads/posts/noimage.png" style="width: 100px; height: 100px; object-fit: cover;">
+                           <div class="w-100 d-flex flex-column justify-content-center bg-light px-3"
+                              style="height: 100px;">
+                              <div class="mb-1" style="font-size: 13px;">
+                                 <a href="">No Category Name</a>
+                                 <span class="px-1">/</span>
+                                 <span>No Date</span>
+                              </div>
+                              <a class="h6 m-0" href="">No Title</a>
+                           </div>
                         </div>
-                        <a class="h6 m-0" href="">Lorem ipsum dolor sit amet consec adipis elit</a>
                      </div>
-                  </div>
-               </div>
-               <div class="col-lg-6">
-                  <div class="d-flex mb-3">
-                     <img src="img/news-100x100-1.jpg" style="width: 100px; height: 100px; object-fit: cover;">
-                     <div class="w-100 d-flex flex-column justify-content-center bg-light px-3" style="height: 100px;">
-                        <div class="mb-1" style="font-size: 13px;">
-                           <a href="">Technology</a>
-                           <span class="px-1">/</span>
-                           <span>January 01, 2045</span>
+                     <div class="col-lg-6">
+                        <div class="d-flex mb-3">
+                           <img src="uploads/posts/noimage.png" style="width: 100px; height: 100px; object-fit: cover;">
+                           <div class="w-100 d-flex flex-column justify-content-center bg-light px-3"
+                              style="height: 100px;">
+                              <div class="mb-1" style="font-size: 13px;">
+                                 <a href="">No Category Name</a>
+                                 <span class="px-1">/</span>
+                                 <span>No Date</span>
+                              </div>
+                              <a class="h6 m-0" href="">No Title</a>
+                           </div>
                         </div>
-                        <a class="h6 m-0" href="">Lorem ipsum dolor sit amet consec adipis elit</a>
                      </div>
-                  </div>
-                  <div class="d-flex mb-3">
-                     <img src="img/news-100x100-2.jpg" style="width: 100px; height: 100px; object-fit: cover;">
-                     <div class="w-100 d-flex flex-column justify-content-center bg-light px-3" style="height: 100px;">
-                        <div class="mb-1" style="font-size: 13px;">
-                           <a href="">Technology</a>
-                           <span class="px-1">/</span>
-                           <span>January 01, 2045</span>
+                     <div class="col-lg-6">
+                        <div class="d-flex mb-3">
+                           <img src="uploads/posts/noimage.png" style="width: 100px; height: 100px; object-fit: cover;">
+                           <div class="w-100 d-flex flex-column justify-content-center bg-light px-3"
+                              style="height: 100px;">
+                              <div class="mb-1" style="font-size: 13px;">
+                                 <a href="">No Category Name</a>
+                                 <span class="px-1">/</span>
+                                 <span>No Date</span>
+                              </div>
+                              <a class="h6 m-0" href="">No Title</a>
+                           </div>
                         </div>
-                        <a class="h6 m-0" href="">Lorem ipsum dolor sit amet consec adipis elit</a>
                      </div>
+                     <div class="col-lg-6">
+                        <div class="d-flex mb-3">
+                           <img src="uploads/posts/noimage.png" style="width: 100px; height: 100px; object-fit: cover;">
+                           <div class="w-100 d-flex flex-column justify-content-center bg-light px-3"
+                              style="height: 100px;">
+                              <div class="mb-1" style="font-size: 13px;">
+                                 <a href="">No Category Name</a>
+                                 <span class="px-1">/</span>
+                                 <span>No Date</span>
+                              </div>
+                              <a class="h6 m-0" href="">No Title</a>
+                           </div>
+                        </div>
+                     </div>
+                     <?php
+                  }
+                  ?>
                   </div>
                </div>
             </div>
@@ -648,7 +828,7 @@
             <!-- Newsletter End -->
             <!-- Ads Start -->
             <div class="mb-3 pb-3">
-               <a href=""><img class="img-fluid" src="img/news-500x280-4.jpg" alt=""></a>
+               <a href=""><img class="img-fluid" src="images/blog-01.jpg" alt=""></a>
             </div>
             <!-- Ads End -->
             <!-- Popular News Start -->
@@ -661,7 +841,7 @@
                   while ($row = mysqli_fetch_assoc($cat_data)) {
                       $cat_id = $row['id'];
                   
-                      $post_data = mysqli_query($con, "SELECT * FROM `posts` WHERE `category_id` = '" . $cat_id . "' ORDER BY `id` DESC LIMIT 0,6");
+                      $post_data = mysqli_query($con, "SELECT * FROM `posts` WHERE `category_id` = '" . $cat_id . "' ORDER BY `id` DESC LIMIT 0,4");
                       while ($post_da = mysqli_fetch_assoc($post_data)) {
                           ?>
                <div class="d-flex mb-3">
@@ -691,7 +871,6 @@
       </div>
    </div>
 </div>
-</div>
-</div>
+
 <!-- News With Sidebar End -->
 <?php include('layout/footer.php') ?>

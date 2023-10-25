@@ -12,7 +12,7 @@
          </ol>
       </nav>
    </div>
-   <?php include ('../massage.php'); ?>
+   <?php include ('massage.php'); ?>
    <section class="section dashboard pt-5">
       <div class="row">
          <div class="col-lg-12">
