@@ -136,3 +136,13 @@ button:focus {
   outline: none;
  
 }
+a {
+  color: #f58b1a;
+  text-decoration: none;
+  background-color: transparent;
+}
+.btn-primary {
+  color: #fff;
+  background-color: #f68b1a;
+  border-color: #f68b1a;
+}
