@@ -1,5 +1,4 @@
 <?php
-   include ('authentication.php');
    include ('layout/header.php');
    include ('layout/side-bar.php');
    ?>
@@ -29,13 +28,13 @@
                      <thead class="table-light">
                         <tr class="text-Secondary">
                            <th class="align-middle">SR. No.</th>
-                           <th>Name</th>
-                           <th>Category Name</th>
-                           <th>Description</th>
-                           <th>Image</th>
-                           <th>Status</th>
-                           <th>Edit</th>
-                           <th>Delete</th>
+                           <th class="align-middle">Name</th>
+                           <th class="align-middle">Category Name</th>
+                           <th class="align-middle">Description</th>
+                           <th class="align-middle">Image</th>
+                           <th class="align-middle">Status</th>
+                           <th class="align-middle">Edit</th>
+                           <th class="align-middle">Delete</th>
                         </tr>
                      </thead>
                      <tbody>
@@ -80,7 +79,7 @@
                            
                            <td class="align-middle"><a href="edit-post.php?id=<?=$row['id'];?>" class="btn btn-success btn-sm btn-rounded py-0 px-2">Edit</a></td>
                            <td class="align-middle">
-                           <form action="trash-qury.php" method="POST">  
+                           <form action="trash-qury.php" method="POST" class="m-0">  
                            <button type="submit" name="post_trash" value="<?=$row['id'];?>" class="btn btn-danger btn-sm btn-rounded py-0 px-2">Delete</button>
                            </form>
                         </td>

@@ -4,11 +4,11 @@
    ?>
 <main id="main" class="main min-vh-100">
    <div class="pagetitle">
-      <h1>Posts</h1>
+      <h1>Slider</h1>
       <nav>
          <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
-            <li class="breadcrumb-item active">Posts</li>
+            <li class="breadcrumb-item active">Slider</li>
          </ol>
       </nav>
    </div>
@@ -18,15 +18,15 @@
          <div class="col-lg-12 ">
             <div class="card">
                <div class="card-header">
-                  <h5 class="card-title p-0 m-0">Edit Post</h5>
+                  <h5 class="card-title p-0 m-0">Edit Slider</h5>
                </div>
                <div class="card-body">
                 <?php
 
                 if(isset($_GET['id']))
                 {
-                    $post_id = $_GET['id']; 
-                    $post_edit = "SELECT * FROM posts WHERE id='$post_id'";
+                    $slider_id = $_GET['id']; 
+                    $post_edit = "SELECT * FROM slider WHERE id='$slider_id'";
                     $post_run = mysqli_query($con, $post_edit);
                    
                     if(mysqli_num_rows($post_run) > 0)
@@ -34,10 +34,10 @@
                         $row = mysqli_fetch_array($post_run)
                         ?>
 
-                  <form action="update-qury.php" method="POST" enctype="multipart/form-data" class="row align-items-end g-3 p-3 fs-8 ">
-                  <input type="hidden" name="post_id" value="<?=$row['id'];?>" class="form-control form-control-sm" id="id">
+                  <form action="slider-query.php" method="POST" enctype="multipart/form-data" class="row align-items-end g-3 p-3 fs-8 ">
+                  <input type="hidden" name="slider_id" value="<?=$row['id'];?>" class="form-control form-control-sm" id="id">
 
-                  <div class="col-12">
+                  <div class="col-6">
                         <label for="name" class="form-label">Category Name</label>
                         <?php
                            $category = "SELECT * FROM categories WHERE status='1' ";
@@ -70,36 +70,20 @@
                            ?>
                      </div>
                      <div class="col-6">
-                        <label for="name" class="form-label ">Post Name</label>
-                        <input type="text" name="name" value="<?=$row['name'];?>" class="form-control form-control-sm" id="name">
+                        <label for="name" class="form-label ">Slider Name</label>
+                        <input type="text" name="title" value="<?=$row['title'];?>" class="form-control form-control-sm" id="name">
                      </div>
-                     <div class="col-6">
-                        <label for="slug" class="form-label">Post Slug (URL)</label>
-                        <input type="text" name="slug" value="<?=$row['slug'];?>" class="form-control form-control-sm" id="slug">
-                     </div>
+                     
                      <div class="col-12">
-                        <label for="description" class="form-label">Post Description</label>
+                        <label for="description" class="form-label">Slider Description</label>
                         <textarea type="text" name="description" value="<?=$row['description'];?>" class="form-control form-control-sm" rows="4"> <?=$row['description'];?></textarea>
                      </div>
-                     <div class="col-12">
-                        <label for="meta_title" class="form-label">Meta Title</label>
-                        <input type="text" name="meta_title" value="<?=$row['meta_title'];?>" class="form-control form-control-sm" id="meta_title">
-                     </div>
-                     <div class="col-12">
-                        <label for="description" class="form-label">Meta Description</label>
-                         <textarea type="text" name="meta_description" class="form-control form-control-sm" rows="4"><?=$row['meta_description'];?></textarea>
-                     </div>
-                     <div class="col-12">
-                        <label for="meta_Keywords" class="form-label">Meta Keywords</label>
-                         <textarea type="text" name="meta_Keywords" class="form-control form-control-sm" rows="4"><?=$row['meta_Keywords'];?></textarea>
-                     </div>
-
-
+                     
                      <div class="col-6">
-                     <label for="image" class="form-label">Upload Post Image</label>
+                     <label for="image" class="form-label">Upload Slider Image</label>
                         <input type="file" name="image" value="<?=$row['image'];?>" class="form-control form-control-sm" id="image">
                         <?php
-                            $filename = "../uploads/posts/" .$row['image'];
+                            $filename = "../images/sliders/" .$row['image'];
                             $imgSrc = file_exists($filename) ? $filename : "../uploads/posts/noimage.png";?>
                             <img width="50px" height="29px" src=<?php echo $imgSrc?>
                             ?>
@@ -114,7 +98,7 @@
                         <span class=" w-100 d-block" style="height:29px"></span>
                      </div>
                      <div class="col-12 text-center">
-                        <button type="submit" name="update_post" class="btn btn-success btn-sm btn-rounded">Update Post</button>
+                        <button type="submit" name="update_slider" class="btn btn-success btn-sm btn-rounded">Update Slider</button>
                      </div>
                   </form>
                   <?php

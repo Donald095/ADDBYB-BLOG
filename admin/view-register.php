@@ -1,5 +1,4 @@
 <?php
-   include ('authentication.php');
    include ('layout/header.php');
    include ('layout/side-bar.php');
    ?>
@@ -85,7 +84,7 @@
                            </td>
                            <td class="align-middle"><a href="edit-register.php?id=<?=$row['id'];?>" class="btn btn-success btn-sm btn-rounded py-0 px-2">Edit</a></td>
                            <td class="align-middle">
-                           <form action="delete-qury.php" method="POST">  
+                           <form action="delete-qury.php" method="POST" class="m-0">  
                            <button type="submit" name="user_delete" id="myAlert" value="<?=$row['id'];?>" class="btn btn-danger btn-sm btn-rounded py-0 px-2">Delete</button>
                            </form>
                         </td>

@@ -1,5 +1,4 @@
 <?php
-   include ('authentication.php');
    include ('layout/header.php');
    include ('layout/side-bar.php');
    ?>
@@ -35,7 +34,7 @@
                         while($row = mysqli_fetch_array($category_run))
                         {
                         ?>
-                  <form action="update-qury.php" method="POST" class="row align-items-end g-3 p-3 fs-8 ">
+                  <form action="update-qury.php" method="POST" enctype="multipart/form-data" class="row align-items-end g-3 p-3 fs-8 ">
                   <input type="hidden" name="category_id" value="<?=$row['id'];?>" class="form-control form-control-sm" id="id">
                      <div class="col-6">
                         <label for="name" class="form-label ">Category Name</label>
@@ -62,22 +61,32 @@
                          <textarea type="text" name="meta_Keywords" class="form-control form-control-sm" rows="4"><?=$row['meta_Keywords'];?></textarea>
                      </div>
 
-
-                     <div class="col-6">
+                     <div class="col-4">
+                     <label for="image" class="form-label">Upload Image</label>
+                        <input type="file" name="image" value="<?=$row['image'];?>"  class="form-control form-control-sm" id="image">
+                        <?php
+                            $filename = "../uploads/category/" .$row['image'];
+                            $imgSrc = file_exists($filename) ? $filename : "../uploads/posts/noimage.png";?>
+                            <img width="50px" height="29px" src=<?php echo $imgSrc?>
+                            ?>
+                     </div>
+                     <div class="col-4">
                         <label for="navbar_status" class="form-label">Navbar Status </label>
                         <select id="navbar_status"  name="navbar_status" class="form-select form-select-sm">
                            <option value="" selected>--Select Navbar Status--</option>
                            <option value="1" <?= $row['navbar_status'] == '1' ? 'selected':'' ?>>Active</option>
                            <option value="0" <?= $row['navbar_status'] == '0' ? 'selected':'' ?>>Inactive</option>
                         </select>
+                        <span class=" w-100 d-block" style="height:29px"></span>
                      </div>
-                     <div class="col-6">
+                     <div class="col-4">
                         <label for="status" class="form-label">Status </label>
                         <select id="status"  name="status" class="form-select form-select-sm">
                            <option value="" selected>--Select Status--</option>
                            <option value="1" <?= $row['status'] == '1' ? 'selected':'' ?>>Active</option>
                            <option value="0" <?= $row['status'] == '0' ? 'selected':'' ?>>Inactive</option>
                         </select>
+                        <span class=" w-100 d-block" style="height:29px"></span>
                      </div>
                      <div class="col-12 text-center">
                         <button type="submit" name="update_category" class="btn btn-success btn-sm btn-rounded">Update Category</button>

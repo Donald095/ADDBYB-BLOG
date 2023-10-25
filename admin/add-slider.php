@@ -1,5 +1,4 @@
 <?php
-   include ('authentication.php');
    include ('layout/header.php');
    include ('layout/side-bar.php');
    ?>
@@ -73,7 +72,7 @@
                      </div>
                      <div class="col-6">
                         <label for="status" class="form-label">Status </label>
-                        <select id="status"  name="status" aria-describedby="status" class="form-select form-select-sm" required>
+                        <select id="status"  name="status"  class="form-select form-select-sm" required>
                            <option value="" selected>--Select Status--</option>
                            <option value="1">Active</option>
                            <option value="0">Inactive</option>

@@ -43,10 +43,13 @@ if(isset($_POST['add_category']))
     $meta_Keywords = $_POST['meta_Keywords'];
     $navbar_status = $_POST['navbar_status'];
     $status = $_POST['status'];
-
-    $query = "INSERT INTO categories (name,slug,description,meta_title,meta_description,meta_Keywords,navbar_status,status) VALUES ('$name','$slug','$description','$meta_title','$meta_description','$meta_Keywords','$navbar_status','$status')";
+    $image = $_FILES['image']['name'];
+    $image_extention = pathinfo($image, PATHINFO_EXTENSION);
+    $filename = time().'.'.$image_extention;
+    $query = "INSERT INTO categories (name,slug,description,meta_title,meta_description,meta_Keywords,navbar_status,status,image) VALUES ('$name','$slug','$description','$meta_title','$meta_description','$meta_Keywords','$navbar_status','$status','$filename')";
     $query_run = mysqli_query($con, $query); 
     if ($query_run) {
+        move_uploaded_file($_FILES['image']['tmp_name'], '../uploads/category/'.$filename);
         $_SESSION["massage"] = "Category Added Successfully.";
         header("Location: add-category.php");
         exit(0);

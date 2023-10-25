@@ -1,5 +1,4 @@
 <?php
-   include ('authentication.php');
    include ('layout/header.php');
    include ('layout/side-bar.php');
    ?>
@@ -30,9 +29,9 @@
                         <tr class="text-Secondary">
                            <th class="align-middle">SR. No.</th>
                            <th>Name</th>
-                           <th>Slug (URL)</th>
                            <th>Description</th>
                            <th>Navbar Status</th>
+                           <th>Image</th>
                            <th>Status</th>
                            <th>Edit</th>
                            <th>Delete</th>
@@ -40,7 +39,7 @@
                      </thead>
                      <tbody>
                         <?php
-                           $query = "SELECT * FROM categories WHERE status='1,0'";
+                           $query = "SELECT * FROM categories WHERE status='1,0' ORDER BY id DESC";
                            $query_run = mysqli_query($con, $query);
                            if(mysqli_num_rows($query_run) > 0)
                            { 
@@ -53,7 +52,6 @@
                         <tr>
                            <td class="align-middle"><?= $id ?>.</td>
                            <td class="align-middle"><?= $row['name']; ?></td>
-                           <td class="align-middle"><?= $row['slug']; ?></td>
                            <td class="align-middle"><?= $row['description']; ?></td>
                            <td class="align-middle">
                            <?php
@@ -69,6 +67,13 @@
                                     echo "<span class='badge badge-warning rounded-pill d-inline-block'>$name</span>";
                                  }
                                  ?>
+                           </td>
+                           <td class="align-middle">
+                           <?php
+                            $filename = "../uploads/category/" .$row['image'];
+                            $imgSrc = file_exists($filename) ? $filename : "../uploads/posts/noimage.png";?>
+                            <img width="50px" src=<?php echo $imgSrc?>
+                            ?>
                            </td>
                            <td class="align-middle">
                            <?php

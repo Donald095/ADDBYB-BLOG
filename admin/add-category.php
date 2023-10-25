@@ -1,5 +1,4 @@
 <?php
-   include ('authentication.php');
    include ('layout/header.php');
    include ('layout/side-bar.php');
    ?>
@@ -22,7 +21,7 @@
                   <h5 class="card-title p-0 m-0">Add Category</h5>
                </div>
                <div class="card-body">  
-                  <form action="add-qury.php" method="POST" class="row align-items-end g-3 p-3 fs-8 ">
+                  <form action="add-qury.php" method="POST" enctype="multipart/form-data" class="row align-items-end g-3 p-3 fs-8 ">
                      <div class="col-6">
                         <label for="name" class="form-label ">Category Name</label>
                         <input type="text" name="name" class="form-control form-control-sm" id="name" required>
@@ -54,7 +53,11 @@
                         <label for="meta_Keywords" class="form-label">Meta Keywords</label>
                          <textarea type="text" name="meta_Keywords" class="form-control form-control-sm" rows="4"> </textarea>
                      </div>
-                     <div class="col-6">
+                     <div class="col-4">
+                        <label for="image" class="form-label">Upload Image</label>
+                        <input type="file" name="image" class="form-control form-control-sm" id="image">
+                     </div>
+                     <div class="col-4">
                         <label for="navbar_status" class="form-label">Navbar Status</label>
                         <select id="navbar_status"  name="navbar_status" class="form-select form-select-sm">
                            <option value="" selected>--Select Navbar Status--</option>
@@ -62,7 +65,7 @@
                            <option value="0">Inactive</option>
                         </select>
                      </div>
-                     <div class="col-6">
+                     <div class="col-4">
                         <label for="status" class="form-label">Status </label>
                         <select id="status"  name="status" class="form-select form-select-sm">
                            <option value="" selected>--Select Status--</option>
