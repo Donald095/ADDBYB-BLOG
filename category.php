@@ -348,7 +348,37 @@
                     <div class="bg-light py-2 px-4 mb-3">
                         <h3 class="m-0">Tranding</h3>
                     </div>
-                    <div class="d-flex mb-3">
+                    <?php
+                  $cat_data = mysqli_query($con, "SELECT * FROM `categories` WHERE STATUS = '1' ORDER BY `id` DESC ");
+                  while ($row = mysqli_fetch_assoc($cat_data)) {
+                      $cat_id = $row['id'];
+                  
+                      $post_data = mysqli_query($con, "SELECT * FROM `posts` WHERE `category_id` = '" . $cat_id . "' ORDER BY `id` DESC LIMIT 0,4");
+                      while ($post_da = mysqli_fetch_assoc($post_data)) {
+                          ?>
+               <div class="d-flex mb-3">
+                  <img src="uploads/posts/<?= $post_da['image'] ?>" style=" width: 100px; height: 100px;
+                     object-fit: cover;">
+                  <div class="w-100 d-flex flex-column justify-content-center bg-light px-3"
+                     style="height: 100px;">
+                     <div class="mb-1" style="font-size: 13px;">
+                        <a target="_blank" href="post_detail.php?id=<?= $post_da['id'] ?>">
+                        <?= $row['name'] ?>
+                        </a>
+                        <span class="px-1">/</span>
+                        <span>
+                        <?= date('F  d, Y', strtotime($post_da['created_at'])) ?>
+                        </span>
+                     </div>
+                     <a class="h6 m-0" target="_blank" href="post_detail.php?id=<?= $post_da['id'] ?>">
+                     <?= $post_da['name'] ?>
+                     </a>
+                  </div>
+               </div>
+               <?php }
+                  } ?>
+
+                    <!-- <div class="d-flex mb-3">
                         <img src="img/news-100x100-1.jpg" style="width: 100px; height: 100px; object-fit: cover;">
                         <div class="w-100 d-flex flex-column justify-content-center bg-light px-3"
                             style="height: 100px;">
@@ -359,76 +389,25 @@
                             </div>
                             <a class="h6 m-0" href="">Lorem ipsum dolor sit amet consec adipis elit</a>
                         </div>
-                    </div>
-                    <div class="d-flex mb-3">
-                        <img src="img/news-100x100-2.jpg" style="width: 100px; height: 100px; object-fit: cover;">
-                        <div class="w-100 d-flex flex-column justify-content-center bg-light px-3"
-                            style="height: 100px;">
-                            <div class="mb-1" style="font-size: 13px;">
-                                <a href="">Technology</a>
-                                <span class="px-1">/</span>
-                                <span>January 01, 2045</span>
-                            </div>
-                            <a class="h6 m-0" href="">Lorem ipsum dolor sit amet consec adipis elit</a>
-                        </div>
-                    </div>
-                    <div class="d-flex mb-3">
-                        <img src="img/news-100x100-3.jpg" style="width: 100px; height: 100px; object-fit: cover;">
-                        <div class="w-100 d-flex flex-column justify-content-center bg-light px-3"
-                            style="height: 100px;">
-                            <div class="mb-1" style="font-size: 13px;">
-                                <a href="">Technology</a>
-                                <span class="px-1">/</span>
-                                <span>January 01, 2045</span>
-                            </div>
-                            <a class="h6 m-0" href="">Lorem ipsum dolor sit amet consec adipis elit</a>
-                        </div>
-                    </div>
-                    <div class="d-flex mb-3">
-                        <img src="img/news-100x100-4.jpg" style="width: 100px; height: 100px; object-fit: cover;">
-                        <div class="w-100 d-flex flex-column justify-content-center bg-light px-3"
-                            style="height: 100px;">
-                            <div class="mb-1" style="font-size: 13px;">
-                                <a href="">Technology</a>
-                                <span class="px-1">/</span>
-                                <span>January 01, 2045</span>
-                            </div>
-                            <a class="h6 m-0" href="">Lorem ipsum dolor sit amet consec adipis elit</a>
-                        </div>
-                    </div>
-                    <div class="d-flex mb-3">
-                        <img src="img/news-100x100-5.jpg" style="width: 100px; height: 100px; object-fit: cover;">
-                        <div class="w-100 d-flex flex-column justify-content-center bg-light px-3"
-                            style="height: 100px;">
-                            <div class="mb-1" style="font-size: 13px;">
-                                <a href="">Technology</a>
-                                <span class="px-1">/</span>
-                                <span>January 01, 2045</span>
-                            </div>
-                            <a class="h6 m-0" href="">Lorem ipsum dolor sit amet consec adipis elit</a>
-                        </div>
-                    </div>
+                    </div> -->
+                    
                 </div>
                 <!-- Popular News End -->
 
                 <!-- Tags Start -->
                 <div class="pb-3">
                     <div class="bg-light py-2 px-4 mb-3">
-                        <h3 class="m-0">Tags</h3>
+                        <h3 class="m-0">Blogs</h3>
                     </div>
                     <div class="d-flex flex-wrap m-n1">
-                        <a href="" class="btn btn-sm btn-outline-secondary m-1">Politics</a>
-                        <a href="" class="btn btn-sm btn-outline-secondary m-1">Business</a>
-                        <a href="" class="btn btn-sm btn-outline-secondary m-1">Corporate</a>
-                        <a href="" class="btn btn-sm btn-outline-secondary m-1">Sports</a>
-                        <a href="" class="btn btn-sm btn-outline-secondary m-1">Health</a>
-                        <a href="" class="btn btn-sm btn-outline-secondary m-1">Education</a>
-                        <a href="" class="btn btn-sm btn-outline-secondary m-1">Science</a>
-                        <a href="" class="btn btn-sm btn-outline-secondary m-1">Technology</a>
-                        <a href="" class="btn btn-sm btn-outline-secondary m-1">Foods</a>
-                        <a href="" class="btn btn-sm btn-outline-secondary m-1">Entertainment</a>
-                        <a href="" class="btn btn-sm btn-outline-secondary m-1">Travel</a>
-                        <a href="" class="btn btn-sm btn-outline-secondary m-1">Lifestyle</a>
+                    <?php 
+                    
+                    $post_data = mysqli_query($con , 'SELECT * FROM `posts` ');
+                    while ($row = mysqli_fetch_array($post_data)) {
+                    
+                    ?>
+                    <a href="" class="btn btn-sm btn-outline-secondary m-1"><?= $row['name'] ?></a>
+                    <?php } ?>
                     </div>
                 </div>
                 <!-- Tags End -->

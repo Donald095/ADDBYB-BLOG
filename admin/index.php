@@ -1,6 +1,7 @@
 <?php
    include ('layout/header.php');
    include ('layout/side-bar.php');
+   
    ?>
 <main id="main" class="main min-vh-100">
    <div class="pagetitle">

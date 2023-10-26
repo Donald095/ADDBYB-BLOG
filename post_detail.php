@@ -105,19 +105,31 @@ while ($post_nav = mysqli_fetch_assoc($post_data)) {
 
                 <!-- Comment List Start -->
                 <div class="bg-light mb-3" style="padding: 30px;">
-                    <h3 class="mb-4">3 Comments</h3>
+                <?php 
+                    
+                    $cmt = mysqli_query($con,'SELECT * FROM `comment` WHERE `POST_ID` = "'. $_GET["id"] .'"');
+                    $rowcount = mysqli_num_rows($cmt)
+                    
+                    ?>
+                
+                    <h3 class="mb-4"><?= $rowcount ?> Comments</h3>
+                      
+                    <?php 
+                    
+                    $cmt = mysqli_query($con,'SELECT * FROM `comment` WHERE `POST_ID` = "'. $_GET["id"] .'"');
+                    while ($row = mysqli_fetch_assoc($cmt)) {
+                    
+                    ?>
                     <div class="media mb-4">
                         <img src="img/user.jpg" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
                         <div class="media-body">
-                            <h6><a href="">John Doe</a> <small><i>01 Jan 2045</i></small></h6>
-                            <p>Diam amet duo labore stet elitr invidunt ea clita ipsum voluptua, tempor labore
-                                accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed sed eirmod ipsum.
-                                Gubergren clita aliquyam consetetur sadipscing, at tempor amet ipsum diam tempor
-                                consetetur at sit.</p>
+                            <h6><a href=""><?= $row['NAME'] ?></a> <small><i><?= date('d M Y', strtotime($row['ADDEDON'])) ?></i></small></h6>
+                            <p><?= $row['MESSAGE'] ?></p>
                             <button class="btn btn-sm btn-outline-secondary">Reply</button>
                         </div>
                     </div>
-                    <div class="media">
+                    <?php } ?>
+                    <!-- <div class="media">
                         <img src="img/user.jpg" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
                         <div class="media-body">
                             <h6><a href="">John Doe</a> <small><i>01 Jan 2045 at 12:00pm</i></small></h6>
@@ -126,7 +138,7 @@ while ($post_nav = mysqli_fetch_assoc($post_data)) {
                                 Gubergren clita aliquyam consetetur sadipscing, at tempor amet ipsum diam tempor
                                 consetetur at sit.</p>
                             <button class="btn btn-sm btn-outline-secondary">Reply</button>
-                            <div class="media mt-4">
+                             <div class="media mt-4">
                                 <img src="img/user.jpg" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
                                 <div class="media-body">
                                     <h6><a href="">John Doe</a> <small><i>01 Jan 2045 at 12:00pm</i></small></h6>
@@ -136,35 +148,36 @@ while ($post_nav = mysqli_fetch_assoc($post_data)) {
                                         ipsum diam tempor consetetur at sit.</p>
                                     <button class="btn btn-sm btn-outline-secondary">Reply</button>
                                 </div>
-                            </div>
+                            </div> 
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <!-- Comment List End -->
 
                 <!-- Comment Form Start -->
                 <div class="bg-light mb-3" style="padding: 30px;">
                     <h3 class="mb-4">Leave a comment</h3>
-                    <form>
+                    <form method="post" id="comment_Form">
+                        <input type="hidden" name="post_id" id="post_id" value="<?php echo $_GET['id'] ?>">
                         <div class="form-group">
                             <label for="name">Name *</label>
-                            <input type="text" class="form-control" id="name">
+                            <input type="text" class="form-control" name="name" id="name">
                         </div>
                         <div class="form-group">
                             <label for="email">Email *</label>
-                            <input type="email" class="form-control" id="email">
+                            <input type="email" class="form-control" name="email" id="email">
                         </div>
                         <div class="form-group">
                             <label for="website">Website</label>
-                            <input type="url" class="form-control" id="website">
+                            <input type="url" class="form-control" name="website" id="website">
                         </div>
 
                         <div class="form-group">
                             <label for="message">Message *</label>
-                            <textarea id="message" cols="30" rows="5" class="form-control"></textarea>
+                            <textarea id="message" name="message" cols="30" rows="5" class="form-control"></textarea>
                         </div>
                         <div class="form-group mb-0">
-                            <input type="submit" value="Leave a comment"
+                            <input type="button" onclick="submitData()" value="Leave a comment"
                                 class="btn btn-primary font-weight-semi-bold py-2 px-3">
                         </div>
                     </form>
@@ -240,87 +253,46 @@ while ($post_nav = mysqli_fetch_assoc($post_data)) {
                     <div class="bg-light py-2 px-4 mb-3">
                         <h3 class="m-0">Tranding</h3>
                     </div>
+                    <?php
+                  $cat_data = mysqli_query($con, "SELECT * FROM `categories` WHERE STATUS = '1' ORDER BY `id` DESC ");
+                  while ($row = mysqli_fetch_assoc($cat_data)) {
+                      $cat_id = $row['id'];
+                  
+                      $post_data = mysqli_query($con, "SELECT * FROM `posts` WHERE `category_id` = '" . $cat_id . "' ORDER BY `id` DESC LIMIT 0,4");
+                      while ($post_da = mysqli_fetch_assoc($post_data)) {
+                          ?>
                     <div class="d-flex mb-3">
-                        <img src="img/news-100x100-1.jpg" style="width: 100px; height: 100px; object-fit: cover;">
+                        <img src="uploads/posts/<?= $post_da['image'] ?>" style="width: 100px; height: 100px; object-fit: cover;">
                         <div class="w-100 d-flex flex-column justify-content-center bg-light px-3"
                             style="height: 100px;">
                             <div class="mb-1" style="font-size: 13px;">
-                                <a href="">Technology</a>
+                                <a target="_blank" href="post_detail.php?id=<?= $post_da['id'] ?>"> <?= $row['name'] ?></a>
                                 <span class="px-1">/</span>
-                                <span>January 01, 2045</span>
+                                <span><?= date('F  d, Y', strtotime($post_da['created_at'])) ?></span>
                             </div>
-                            <a class="h6 m-0" href="">Lorem ipsum dolor sit amet consec adipis elit</a>
+                            <a class="h6 m-0" target="_blank" href="post_detail.php?id=<?= $post_da['id'] ?>"><?= $post_da['name'] ?></a>
                         </div>
                     </div>
-                    <div class="d-flex mb-3">
-                        <img src="img/news-100x100-2.jpg" style="width: 100px; height: 100px; object-fit: cover;">
-                        <div class="w-100 d-flex flex-column justify-content-center bg-light px-3"
-                            style="height: 100px;">
-                            <div class="mb-1" style="font-size: 13px;">
-                                <a href="">Technology</a>
-                                <span class="px-1">/</span>
-                                <span>January 01, 2045</span>
-                            </div>
-                            <a class="h6 m-0" href="">Lorem ipsum dolor sit amet consec adipis elit</a>
-                        </div>
-                    </div>
-                    <div class="d-flex mb-3">
-                        <img src="img/news-100x100-3.jpg" style="width: 100px; height: 100px; object-fit: cover;">
-                        <div class="w-100 d-flex flex-column justify-content-center bg-light px-3"
-                            style="height: 100px;">
-                            <div class="mb-1" style="font-size: 13px;">
-                                <a href="">Technology</a>
-                                <span class="px-1">/</span>
-                                <span>January 01, 2045</span>
-                            </div>
-                            <a class="h6 m-0" href="">Lorem ipsum dolor sit amet consec adipis elit</a>
-                        </div>
-                    </div>
-                    <div class="d-flex mb-3">
-                        <img src="img/news-100x100-4.jpg" style="width: 100px; height: 100px; object-fit: cover;">
-                        <div class="w-100 d-flex flex-column justify-content-center bg-light px-3"
-                            style="height: 100px;">
-                            <div class="mb-1" style="font-size: 13px;">
-                                <a href="">Technology</a>
-                                <span class="px-1">/</span>
-                                <span>January 01, 2045</span>
-                            </div>
-                            <a class="h6 m-0" href="">Lorem ipsum dolor sit amet consec adipis elit</a>
-                        </div>
-                    </div>
-                    <div class="d-flex mb-3">
-                        <img src="img/news-100x100-5.jpg" style="width: 100px; height: 100px; object-fit: cover;">
-                        <div class="w-100 d-flex flex-column justify-content-center bg-light px-3"
-                            style="height: 100px;">
-                            <div class="mb-1" style="font-size: 13px;">
-                                <a href="">Technology</a>
-                                <span class="px-1">/</span>
-                                <span>January 01, 2045</span>
-                            </div>
-                            <a class="h6 m-0" href="">Lorem ipsum dolor sit amet consec adipis elit</a>
-                        </div>
-                    </div>
+                    <?php }
+                  } ?>
+                    
                 </div>
                 <!-- Popular News End -->
 
                 <!-- Tags Start -->
                 <div class="pb-3">
                     <div class="bg-light py-2 px-4 mb-3">
-                        <h3 class="m-0">Tags</h3>
+                        <h3 class="m-0">Blogs</h3>
                     </div>
                     <div class="d-flex flex-wrap m-n1">
-                        <a href="" class="btn btn-sm btn-outline-secondary m-1">Politics</a>
-                        <a href="" class="btn btn-sm btn-outline-secondary m-1">Business</a>
-                        <a href="" class="btn btn-sm btn-outline-secondary m-1">Corporate</a>
-                        <a href="" class="btn btn-sm btn-outline-secondary m-1">Sports</a>
-                        <a href="" class="btn btn-sm btn-outline-secondary m-1">Health</a>
-                        <a href="" class="btn btn-sm btn-outline-secondary m-1">Education</a>
-                        <a href="" class="btn btn-sm btn-outline-secondary m-1">Science</a>
-                        <a href="" class="btn btn-sm btn-outline-secondary m-1">Technology</a>
-                        <a href="" class="btn btn-sm btn-outline-secondary m-1">Foods</a>
-                        <a href="" class="btn btn-sm btn-outline-secondary m-1">Entertainment</a>
-                        <a href="" class="btn btn-sm btn-outline-secondary m-1">Travel</a>
-                        <a href="" class="btn btn-sm btn-outline-secondary m-1">Lifestyle</a>
+                    <?php 
+                    
+                    $post_data = mysqli_query($con , 'SELECT * FROM `posts` ');
+                    while ($row = mysqli_fetch_array($post_data)) {
+                    
+                    ?>
+                    <a href="" class="btn btn-sm btn-outline-secondary m-1"><?= $row['name'] ?></a>
+                    <?php } ?>
                     </div>
                 </div>
                 <!-- Tags End -->
@@ -330,5 +302,51 @@ while ($post_nav = mysqli_fetch_assoc($post_data)) {
 </div>
 </div>
 <!-- News With Sidebar End -->
+<script>
+
+    function submitData() {
+        var name = $('#name').val();
+        var emailid = $('#email').val();
+        var website = $('#website').val();
+        var message = $('#message').val();
+        var post_id = $('#post_id').val();
+        atpos = emailid.indexOf("@");
+        dotpos = emailid.lastIndexOf(".");
+        if (name == '') {
+            alert('Please enter Name');
+            return false;
+        } else if (emailid == '') {
+            alert('Please enter Name');
+            return false;
+        } else if (atpos < 1 || (dotpos - atpos < 2)) {
+            alert("Please enter correct Email Id");
+            return false;
+        } else if (website == '') {
+            alert('Please enter website');
+            return false;
+        } else if (message == '') {
+            alert('Please enter message');
+            return false;
+        } else if (post_id == '') {
+            return false;
+        } else {
+            $.ajax({
+                type: 'post',
+                url: 'sentcomments.php',
+                data: $('#comment_Form').serialize(),
+                success: function (response) {
+                    if (response == 'Successfully') {
+                        alert('Thanks for Given arguments !!!');
+                        window.location.reload();
+                    } else {
+                        alert('Something went wrong');
+                    }
+
+                }
+            });
+        }
+    }
+
+</script>
 
 <?php include('layout/footer.php') ?>;

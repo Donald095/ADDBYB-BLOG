@@ -15,8 +15,8 @@ if(isset($_POST['update_post']))
    $image_extention = pathinfo($image, PATHINFO_EXTENSION);
    $filename = time().'.'.$image_extention;
    $status = $_POST['status'];
-   $query = "UPDATE posts SET category_id ='$id', name='$name', slug='$slug', description='$description', image='$filename', meta_title='$meta_title', meta_description='$meta_description', meta_Keywords='$meta_Keywords', status='$status'
-              WHERE id='$post_id' ";
+   $query = "UPDATE `posts` SET `category_id` ='$id', `name`='$name', `slug`='$slug', `description`='$description', `image`='$filename', `meta_title`='$meta_title', `meta_description`='$meta_description', `meta_Keywords`='$meta_Keywords', `status`='$status' WHERE `id`='$post_id' ";
+            //   print_r($query);die('1');
     $query_run = mysqli_query($con, $query);    
     if($query_run)
     {
@@ -43,6 +43,7 @@ if(isset($_POST['update_category']))
    $filename = time().'.'.$image_extention;
    $query = "UPDATE categories SET name='$name', slug='$slug', description='$description', meta_title='$meta_title', meta_description='$meta_description', meta_Keywords='$meta_Keywords', navbar_status='$navbar_status', status='$status', image='$filename'
               WHERE id='$category_id' ";
+            //   print_r($query);die('2');
     $query_run = mysqli_query($con, $query);    
     if($query_run)
     {

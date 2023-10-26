@@ -213,15 +213,18 @@
    <div class="container-lg">
       <div class="row">
          <?php
-            $cat_data = mysqli_query($con, "SELECT * FROM `categories` WHERE STATUS = '1' ORDER BY `id` DESC");
+            $cat_data = mysqli_query($con, "SELECT * FROM `categories` WHERE STATUS = '1'");
             $cat_num_rows = mysqli_num_rows($cat_data);
-            
-            for ($j = 0; $j < 4; $j++) {
+            // echo $cat_num_rows;
+            // die('Error');
+            for ($j = 0; $j < $cat_num_rows; $j++) {
+               // echo $cat_num_rows;
                 $row = mysqli_fetch_assoc($cat_data);
                 $cat_id = $row['id'];
-            
+               // echo $cat_id;
                 $check_post_data = mysqli_query($con, "SELECT * FROM `posts` WHERE `category_id` = '" . $cat_id . "'");
                 $check_num_rows = mysqli_num_rows($check_post_data);
+               //  echo $check_num_rows;
                 if ($check_num_rows == 0) {
                     continue;
                 }
